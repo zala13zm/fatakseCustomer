@@ -47,7 +47,7 @@ class _ExampleTwoState extends State<ExampleTwo> {
       final response = await http.get(
           Uri.parse('https://admin.fataakse.co.in/api/vendors?page=$page'));
       var data = jsonDecode(response.body.toString());
-      debugPrint('Data Print ===  + $data');
+      // debugPrint('Data Print ===  + $data');
       if (response.statusCode == 200) {
         for (Map i in data['data']) {
           if (i['is_active'] == 1) {
