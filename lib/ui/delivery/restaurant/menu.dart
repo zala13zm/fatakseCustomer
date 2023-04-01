@@ -109,7 +109,9 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
                         color: Colors.black,
                       ),
                       child: Text(
-                        _name,
+                        _name.length <= 20
+                            ? _name
+                            : '${_name.substring(0, 20)}...',
                         style: TextStyle(
                             fontSize: 27, fontWeight: FontWeight.bold),
                       ),
@@ -135,7 +137,14 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
                 ),
               ),
               FilterList(),
-              Container(height: 500, child: MenuPage()),
+              Expanded(
+                child: Container(
+                  margin: EdgeInsets.symmetric(horizontal: 10),
+                  child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: MenuPage()),
+                ),
+              )
             ],
           ),
           AnimatedPositioned(
@@ -145,7 +154,7 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Colors.blue,
                 borderRadius: BorderRadius.circular(25),
                 boxShadow: [
                   BoxShadow(
@@ -157,7 +166,7 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
               ),
               child: Text(
                 'What You Want To Eat Today?',
-                style: TextStyle(fontSize: 16, color: Colors.black),
+                style: TextStyle(fontSize: 16, color: Colors.white),
               ),
             ),
           ),
@@ -252,47 +261,63 @@ class MenuPage extends StatefulWidget {
 
 class _MenuPageState extends State<MenuPage> {
   List<MenuItem> _menuItems = [
-    MenuItem(name: 'Burgers', products: [
-      Product(
+    MenuItem(
+      name: 'Burgers',
+      products: [
+        Product(
           name: 'Classic Burger',
-          description: 'Our signature burger with 100% beef patty',
+          description: 'Our signature burger with 100% patty',
           price: 8.99,
           imageUrl:
-              'https://w7.pngwing.com/pngs/201/77/png-transparent-hamburger-veggie-burger-take-out-fast-food-kebab-delicious-beef-burger-burger-with-lettuce-tomato-and-cheese-food-beef-recipe.png'),
-      Product(
+              'https://w7.pngwing.com/pngs/201/77/png-transparent-hamburger-veggie-burger-take-out-fast-food-kebab-delicious-beef-burger-burger-with-lettuce-tomato-and-cheese-food-beef-recipe.png',
+        ),
+        Product(
           name: 'Veggie Burger',
           description: 'A delicious veggie burger with fresh veggies',
           price: 7.99,
           imageUrl:
-              'https://w7.pngwing.com/pngs/201/77/png-transparent-hamburger-veggie-burger-take-out-fast-food-kebab-delicious-beef-burger-burger-with-lettuce-tomato-and-cheese-food-beef-recipe.png')
-    ]),
-    MenuItem(name: 'Pizzas', products: [
-      Product(
+              'https://w7.pngwing.com/pngs/201/77/png-transparent-hamburger-veggie-burger-take-out-fast-food-kebab-delicious-beef-burger-burger-with-lettuce-tomato-and-cheese-food-beef-recipe.png',
+        ),
+      ],
+    ),
+    MenuItem(
+      name: 'Pizzas',
+      products: [
+        Product(
           name: 'Pepperoni Pizza',
           description: 'Our classic pizza with pepperoni and mozzarella',
           price: 12.99,
           imageUrl:
-              'https://w7.pngwing.com/pngs/201/77/png-transparent-hamburger-veggie-burger-take-out-fast-food-kebab-delicious-beef-burger-burger-with-lettuce-tomato-and-cheese-food-beef-recipe.png'),
-      Product(
+              'https://w7.pngwing.com/pngs/201/77/png-transparent-hamburger-veggie-burger-take-out-fast-food-kebab-delicious-beef-burger-burger-with-lettuce-tomato-and-cheese-food-beef-recipe.png',
+        ),
+        Product(
           name: 'Margherita Pizza',
           description: 'A classic pizza with tomato sauce and mozzarella',
           price: 11.99,
           imageUrl:
-              'https://w7.pngwing.com/pngs/201/77/png-transparent-hamburger-veggie-burger-take-out-fast-food-kebab-delicious-beef-burger-burger-with-lettuce-tomato-and-cheese-food-beef-recipe.png')
-    ]),
-    MenuItem(name: 'Drinks', products: [
-      Product(
+              'https://w7.pngwing.com/pngs/201/77/png-transparent-hamburger-veggie-burger-take-out-fast-food-kebab-delicious-beef-burger-burger-with-lettuce-tomato-and-cheese-food-beef-recipe.png',
+        ),
+      ],
+    ),
+    MenuItem(
+      name: 'Drinks',
+      products: [
+        Product(
           name: 'Coke',
           description: 'A refreshing Coca-Cola drink',
           price: 2.99,
-          imageUrl: 'https://example.com/coke.jpg'),
-      Product(
+          imageUrl:
+              'https://w7.pngwing.com/pngs/201/77/png-transparent-hamburger-veggie-burger-take-out-fast-food-kebab-delicious-beef-burger-burger-with-lettuce-tomato-and-cheese-food-beef-recipe.png',
+        ),
+        Product(
           name: 'Orange Juice',
           description: 'Freshly squeezed orange juice',
           price: 3.99,
           imageUrl:
-              'https://w7.pngwing.com/pngs/201/77/png-transparent-hamburger-veggie-burger-take-out-fast-food-kebab-delicious-beef-burger-burger-with-lettuce-tomato-and-cheese-food-beef-recipe.png')
-    ])
+              'https://w7.pngwing.com/pngs/201/77/png-transparent-hamburger-veggie-burger-take-out-fast-food-kebab-delicious-beef-burger-burger-with-lettuce-tomato-and-cheese-food-beef-recipe.png',
+        ),
+      ],
+    ),
   ];
 
   @override
@@ -302,39 +327,128 @@ class _MenuPageState extends State<MenuPage> {
         itemCount: _menuItems.length,
         itemBuilder: (BuildContext context, int index) {
           final menuItem = _menuItems[index];
-          return ExpansionTile(
-            title: Text(menuItem.name),
-            children: menuItem.products
-                .map((product) => ListTile(
-                      leading: Image.network(
-                        'https://w7.pngwing.com/pngs/201/77/png-transparent-hamburger-veggie-burger-take-out-fast-food-kebab-delicious-beef-burger-burger-with-lettuce-tomato-and-cheese-food-beef-recipe.png',
-                        width: 50,
-                        height: 50,
-                        fit: BoxFit.cover,
+          return ClipRRect(
+            borderRadius: BorderRadius.circular(50),
+            child: Card(
+              child: ExpansionTile(
+                initiallyExpanded: true,
+                title: Center(
+                  child: Text(
+                    menuItem.name,
+                    style: TextStyle(fontWeight: FontWeight.bold),
+                  ),
+                ),
+                children: menuItem.products
+                    .map(
+                      (product) => Column(
+                        children: [
+                          ListTile(
+                            leading: Image.network(
+                              product.imageUrl,
+                              width: 50,
+                              height: 50,
+                              fit: BoxFit.cover,
+                            ),
+                            title: Text(product.name),
+                            subtitle: Text(product.description),
+                            trailing: QuantitySelector(),
+                          ),
+                          Divider(height: 1),
+                        ],
                       ),
-                      title: Text(product.name),
-                      subtitle: Text(product.description),
-                      trailing: _buildQuantitySelector(),
-                    ))
-                .toList(),
+                    )
+                    .toList(),
+              ),
+            ),
           );
         },
       ),
     );
   }
+}
 
-  Widget _buildQuantitySelector() {
+class QuantitySelector extends StatefulWidget {
+  @override
+  _QuantitySelectorState createState() => _QuantitySelectorState();
+}
+
+class _QuantitySelectorState extends State<QuantitySelector>
+    with TickerProviderStateMixin {
+  AnimationController _controller;
+  Animation<double> _animation;
+  int _quantity = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller =
+        AnimationController(vsync: this, duration: Duration(milliseconds: 300));
+    _animation = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  void _incrementQuantity() {
+    setState(() {
+      _quantity++;
+    });
+    _controller.forward(from: 0);
+  }
+
+  void _decrementQuantity() {
+    if (_quantity > 0) {
+      setState(() {
+        _quantity--;
+      });
+      _controller.forward(from: 0);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Row(
       mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         IconButton(
-          onPressed: () {},
+          onPressed: _decrementQuantity,
           icon: Icon(Icons.remove),
+          color: Colors.grey[700],
         ),
-        Text('0'),
+        SizedBox(
+          width: 30,
+          height: 30,
+          child: GestureDetector(
+            onTap: _incrementQuantity,
+            child: DecoratedBox(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(8),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey[300]?.withOpacity(_animation.value),
+                    blurRadius: 3,
+                    offset: Offset(0, 1),
+                  ),
+                ],
+              ),
+              child: Center(
+                child: Text(
+                  _quantity.toString(),
+                  style: TextStyle(fontSize: 16),
+                ),
+              ),
+            ),
+          ),
+        ),
         IconButton(
-          onPressed: () {},
+          onPressed: _incrementQuantity,
           icon: Icon(Icons.add),
+          color: Colors.grey[700],
         ),
       ],
     );
