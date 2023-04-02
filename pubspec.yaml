@@ -33,6 +33,8 @@ dependencies:
   accordion: ^2.5.1
   google_fonts: ^4.0.3
   draggable_scrollbar: ^0.1.0
+  carousel_slider: ^4.2.1
+  video_player: ^2.6.0
 
 dev_dependencies:
   flutter_test:
