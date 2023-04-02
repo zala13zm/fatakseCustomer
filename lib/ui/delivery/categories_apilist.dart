@@ -56,7 +56,7 @@ class _CategoryListState extends State<CategoryList> {
             (category) => Category.fromJson(category),
           ),
         );
-        _visibleCategories = _categories.take(9).toList();
+        _visibleCategories = _categories.take(16).toList();
       }
     } catch (error) {
       print('Error: $error');
@@ -79,14 +79,14 @@ class _CategoryListState extends State<CategoryList> {
               GridView.count(
                 physics: NeverScrollableScrollPhysics(),
                 shrinkWrap: true,
-                crossAxisCount: 3, // set the number of columns to 3
+                crossAxisCount: 4, // set the number of columns to 3
                 children: _visibleCategories.map((category) {
                   return Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Container(
-                        width: 80,
-                        height: 80,
+                        width: 50,
+                        height: 50,
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                         ),
@@ -119,7 +119,7 @@ class _CategoryListState extends State<CategoryList> {
                     onPressed: () {
                       setState(() {
                         _visibleCategories = _categories
-                            .take(6)
+                            .take(16)
                             .toList(); // show the first 6 categories
                         _showAllCategories = false;
                       });

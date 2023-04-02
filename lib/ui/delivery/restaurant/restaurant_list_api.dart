@@ -85,7 +85,8 @@ class _RestaurentCardWidgetState extends State<RestaurentCardWidget> {
         future: getRestData(),
         builder: (context, AsyncSnapshot<List<RestData>> snapshot) {
           return Container(
-            height: snapshot.data.length.toDouble() * 351,
+            height:
+                snapshot.hasData ? snapshot.data.length.toDouble() * 351 : 0,
             child: Column(
               children: [
                 Container(
@@ -95,7 +96,7 @@ class _RestaurentCardWidgetState extends State<RestaurentCardWidget> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          '${snapshot.data.length.toString()} delivery places around you',
+                          '${snapshot.hasData ? snapshot.data.length.toString() : 'loading'} delivery places around you',
                           style: TextStyles.h1Heading,
                         ),
                         SizedBox(

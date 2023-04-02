@@ -19,6 +19,9 @@ class _FoodTabState extends State<FoodTab> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
+          SizedBox(
+            height: 10,
+          ),
           Container(
             child: Card(
               elevation: 0,
@@ -60,7 +63,7 @@ class _FoodTabState extends State<FoodTab> {
               ),
             ),
           ),
-          CategoryList(),
+          Container(child: CategoryList()),
           BannerCarousel(),
           RestaurentCardWidget(),
         ],
