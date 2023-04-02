@@ -102,7 +102,7 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     AnimatedDefaultTextStyle(
-                      duration: Duration(milliseconds: 500),
+                      duration: Duration(milliseconds: 700),
                       style: TextStyle(
                         fontSize: _isNameVisible ? 20 : 0,
                         fontWeight: FontWeight.bold,
@@ -345,8 +345,8 @@ class _MenuPageState extends State<MenuPage> {
                           ListTile(
                             leading: Image.network(
                               product.imageUrl,
-                              width: 50,
-                              height: 50,
+                              width: 100,
+                              height: 100,
                               fit: BoxFit.cover,
                             ),
                             title: Text(product.name),

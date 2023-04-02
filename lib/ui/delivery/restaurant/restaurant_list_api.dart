@@ -11,7 +11,7 @@ import 'menu.dart';
 main() {
   runApp(
     MaterialApp(
-      home: ExampleTwo(),
+      home: RestaurentCardWidget(),
     ),
   );
 }
@@ -27,15 +27,16 @@ class RestData {
       this.name, this.description, this.address, this.logo, this.feature_image);
 }
 
-class ExampleTwo extends StatefulWidget {
-  const ExampleTwo({Key key}) : super(key: key);
-
+class RestaurentCardWidget extends StatefulWidget {
+  RestaurentCardWidget({Key key}) : super(key: key);
   @override
-  _ExampleTwoState createState() => _ExampleTwoState();
+  _RestaurentCardWidgetState createState() => _RestaurentCardWidgetState();
 }
 
-class _ExampleTwoState extends State<ExampleTwo> {
+class _RestaurentCardWidgetState extends State<RestaurentCardWidget> {
   List<RestData> restaurantList = [];
+  _RestaurentCardWidgetState();
+  dynamic activeCount = 0;
 
   Future<List<RestData>> getRestData() async {
     List<RestData> restaurantList = [];
@@ -47,7 +48,7 @@ class _ExampleTwoState extends State<ExampleTwo> {
       final response = await http.get(
           Uri.parse('https://admin.fataakse.co.in/api/vendors?page=$page'));
       var data = jsonDecode(response.body.toString());
-      // debugPrint('Data Print ===  + $data');
+
       if (response.statusCode == 200) {
         for (Map i in data['data']) {
           if (i['is_active'] == 1) {
@@ -55,6 +56,7 @@ class _ExampleTwoState extends State<ExampleTwo> {
             RestData restData = RestData(i['name'], i['description'],
                 i['address'], i['logo_url'], i['feature_image']);
             restaurantList.add(restData);
+            activeCount++;
           }
         }
 
@@ -81,8 +83,6 @@ class _ExampleTwoState extends State<ExampleTwo> {
         future: getRestData(),
         builder: (context, AsyncSnapshot<List<RestData>> snapshot) {
           return ListView.builder(
-              scrollDirection: Axis.vertical,
-              physics: ScrollPhysics().parent,
               itemCount: snapshot.hasData ? snapshot.data.length : 0,
               itemBuilder: (context, index) {
                 return GestureDetector(
