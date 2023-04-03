@@ -66,7 +66,7 @@ class LogoWidget extends StatelessWidget {
       decoration: BoxDecoration(
         image: const DecorationImage(
           image: AssetImage(
-              'assets/1.png'), // TODO: Edit Image In Canva And Add Here
+              'images/1.png'), // TODO: Edit Image In Canva And Add Here
           fit: BoxFit.cover,
         ),
       ),
