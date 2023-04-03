@@ -48,7 +48,7 @@ class _MenuPageState extends State<MenuPage> {
           print(productName);
           print(productPrice);
           print(page);
-
+          //TODO: data can print in console but processed stop between and show error, and after running nothing showing on screen
           menuItems.add(Product(
             name: productName,
             price: productPrice.toDouble(), // Convert num to double
