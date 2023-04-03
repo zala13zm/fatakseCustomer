@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:zomatoui/ui/delivery/restaurant/restaurant_list_api.dart';
 
+import 'menu_products.dart';
+
 class RestaurantDetailPage extends StatefulWidget {
   final RestData restData;
 
@@ -31,9 +33,12 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
       setState(() {
         _isChatVisible = true;
         Future.delayed(Duration(seconds: 5), () {
-          setState(() {
-            _isChatVisible = false;
-          });
+          if (mounted) {
+            // check if widget is still mounted
+            setState(() {
+              _isChatVisible = false;
+            });
+          }
         });
       });
     });
@@ -141,8 +146,11 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
                 child: Container(
                   margin: EdgeInsets.symmetric(horizontal: 10),
                   child: ClipRRect(
-                      borderRadius: BorderRadius.circular(10),
-                      child: MenuPage()),
+                    borderRadius: BorderRadius.circular(10),
+                    child: MenuPage(
+                      proData: widget.restData,
+                    ),
+                  ),
                 ),
               )
             ],
@@ -235,222 +243,10 @@ class _FilterListState extends State<FilterList> {
     );
   }
 }
-
-class MenuItem {
-  String name;
-  List<Product> products;
-
-  MenuItem({this.name, this.products});
-}
-
-class Product {
-  String name;
-  String description;
-  double price;
-  String imageUrl;
-
-  Product({this.name, this.description, this.price, this.imageUrl});
-}
-
-class MenuPage extends StatefulWidget {
-  const MenuPage({Key key}) : super(key: key);
-
-  @override
-  _MenuPageState createState() => _MenuPageState();
-}
-
-class _MenuPageState extends State<MenuPage> {
-  List<MenuItem> _menuItems = [
-    MenuItem(
-      name: 'Burgers',
-      products: [
-        Product(
-          name: 'Classic Burger',
-          description: 'Our signature burger with 100% patty',
-          price: 8.99,
-          imageUrl:
-              'https://w7.pngwing.com/pngs/201/77/png-transparent-hamburger-veggie-burger-take-out-fast-food-kebab-delicious-beef-burger-burger-with-lettuce-tomato-and-cheese-food-beef-recipe.png',
-        ),
-        Product(
-          name: 'Veggie Burger',
-          description: 'A delicious veggie burger with fresh veggies',
-          price: 7.99,
-          imageUrl:
-              'https://w7.pngwing.com/pngs/201/77/png-transparent-hamburger-veggie-burger-take-out-fast-food-kebab-delicious-beef-burger-burger-with-lettuce-tomato-and-cheese-food-beef-recipe.png',
-        ),
-      ],
-    ),
-    MenuItem(
-      name: 'Pizzas',
-      products: [
-        Product(
-          name: 'Pepperoni Pizza',
-          description: 'Our classic pizza with pepperoni and mozzarella',
-          price: 12.99,
-          imageUrl:
-              'https://w7.pngwing.com/pngs/201/77/png-transparent-hamburger-veggie-burger-take-out-fast-food-kebab-delicious-beef-burger-burger-with-lettuce-tomato-and-cheese-food-beef-recipe.png',
-        ),
-        Product(
-          name: 'Margherita Pizza',
-          description: 'A classic pizza with tomato sauce and mozzarella',
-          price: 11.99,
-          imageUrl:
-              'https://w7.pngwing.com/pngs/201/77/png-transparent-hamburger-veggie-burger-take-out-fast-food-kebab-delicious-beef-burger-burger-with-lettuce-tomato-and-cheese-food-beef-recipe.png',
-        ),
-      ],
-    ),
-    MenuItem(
-      name: 'Drinks',
-      products: [
-        Product(
-          name: 'Coke',
-          description: 'A refreshing Coca-Cola drink',
-          price: 2.99,
-          imageUrl:
-              'https://w7.pngwing.com/pngs/201/77/png-transparent-hamburger-veggie-burger-take-out-fast-food-kebab-delicious-beef-burger-burger-with-lettuce-tomato-and-cheese-food-beef-recipe.png',
-        ),
-        Product(
-          name: 'Orange Juice',
-          description: 'Freshly squeezed orange juice',
-          price: 3.99,
-          imageUrl:
-              'https://w7.pngwing.com/pngs/201/77/png-transparent-hamburger-veggie-burger-take-out-fast-food-kebab-delicious-beef-burger-burger-with-lettuce-tomato-and-cheese-food-beef-recipe.png',
-        ),
-      ],
-    ),
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: ListView.builder(
-        itemCount: _menuItems.length,
-        itemBuilder: (BuildContext context, int index) {
-          final menuItem = _menuItems[index];
-          return ClipRRect(
-            borderRadius: BorderRadius.circular(50),
-            child: Card(
-              child: ExpansionTile(
-                initiallyExpanded: true,
-                title: Center(
-                  child: Text(
-                    menuItem.name,
-                    style: TextStyle(fontWeight: FontWeight.bold),
-                  ),
-                ),
-                children: menuItem.products
-                    .map(
-                      (product) => Column(
-                        children: [
-                          ListTile(
-                            leading: Image.network(
-                              product.imageUrl,
-                              width: 100,
-                              height: 100,
-                              fit: BoxFit.cover,
-                            ),
-                            title: Text(product.name),
-                            subtitle: Text(product.description),
-                            trailing: QuantitySelector(),
-                          ),
-                          Divider(height: 1),
-                        ],
-                      ),
-                    )
-                    .toList(),
-              ),
-            ),
-          );
-        },
-      ),
-    );
-  }
-}
-
-class QuantitySelector extends StatefulWidget {
-  @override
-  _QuantitySelectorState createState() => _QuantitySelectorState();
-}
-
-class _QuantitySelectorState extends State<QuantitySelector>
-    with TickerProviderStateMixin {
-  AnimationController _controller;
-  Animation<double> _animation;
-  int _quantity = 0;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller =
-        AnimationController(vsync: this, duration: Duration(milliseconds: 300));
-    _animation = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  void _incrementQuantity() {
-    setState(() {
-      _quantity++;
-    });
-    _controller.forward(from: 0);
-  }
-
-  void _decrementQuantity() {
-    if (_quantity > 0) {
-      setState(() {
-        _quantity--;
-      });
-      _controller.forward(from: 0);
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        IconButton(
-          onPressed: _decrementQuantity,
-          icon: Icon(Icons.remove),
-          color: Colors.grey[700],
-        ),
-        SizedBox(
-          width: 30,
-          height: 30,
-          child: GestureDetector(
-            onTap: _incrementQuantity,
-            child: DecoratedBox(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(8),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey[300]?.withOpacity(_animation.value),
-                    blurRadius: 3,
-                    offset: Offset(0, 1),
-                  ),
-                ],
-              ),
-              child: Center(
-                child: Text(
-                  _quantity.toString(),
-                  style: TextStyle(fontSize: 16),
-                ),
-              ),
-            ),
-          ),
-        ),
-        IconButton(
-          onPressed: _incrementQuantity,
-          icon: Icon(Icons.add),
-          color: Colors.grey[700],
-        ),
-      ],
-    );
-  }
-}
+// Navigator.push(
+// context,
+// MaterialPageRoute(
+// builder: (context) => MenuPage(
+// restData: snapshot.data[index]),
+// ),
+// );

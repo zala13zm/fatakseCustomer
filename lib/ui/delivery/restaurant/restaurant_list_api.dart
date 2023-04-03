@@ -23,9 +23,10 @@ class RestData {
   final String address;
   final String logo;
   final String feature_image;
+  final int id;
 
-  RestData(
-      this.name, this.description, this.address, this.logo, this.feature_image);
+  RestData(this.name, this.description, this.address, this.logo,
+      this.feature_image, this.id);
 }
 
 class RestaurentCardWidget extends StatefulWidget {
@@ -55,7 +56,7 @@ class _RestaurentCardWidgetState extends State<RestaurentCardWidget> {
           if (i['is_active'] == 1) {
             // Check if the data is active
             RestData restData = RestData(i['name'], i['description'],
-                i['address'], i['logo_url'], i['feature_image']);
+                i['address'], i['logo_url'], i['feature_image'], i['id']);
             restaurantList.add(restData);
             activeCount++; // Increment activeCount only if is_active is 1
           }
