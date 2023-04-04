@@ -138,7 +138,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         ),
                       ],
                     ),
-                    SearchBar('Search for restaurants, Cusines...'),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SearchScreen()),
+                        );
+                      },
+                      child: SearchBar('Search for restaurants, cuisines...'),
+                    ),
                     _widgetOptions.elementAt(_selectedIndex),
                   ],
                 ),
