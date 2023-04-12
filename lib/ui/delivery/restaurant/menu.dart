@@ -147,12 +147,48 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
                   margin: EdgeInsets.symmetric(horizontal: 10),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-                    child: MenuPage(
-                      proData: widget.restData,
-                    ),
+                    child: MenuPage(),
                   ),
                 ),
-              )
+              ),
+              if (itemAddedToCart == true)
+                InkWell(
+                  child: Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.all(20),
+                    color: Colors.lightGreen,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          ' ITEM  |  150',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16.0,
+                            color: Colors.white,
+                          ),
+                        ),
+                        Text(
+                          'VIEW CART >',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16.0,
+                            color: Colors.white,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                  // onTap: () => Navigator.push(
+                  //   context,
+                  //   MaterialPageRoute(
+                  //     builder: (_) => Checkout(
+                  //         obj: widget.obj,
+                  //         selectedItems: _selectedItems,
+                  //         totalPrice: totalPrice),
+                  //   ),
+                  // ),
+                ),
             ],
           ),
           AnimatedPositioned(

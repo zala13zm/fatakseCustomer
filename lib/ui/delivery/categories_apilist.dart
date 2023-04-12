@@ -91,14 +91,7 @@ class _CategoryListState extends State<CategoryList> {
                           shape: BoxShape.circle,
                         ),
                         child: CircleAvatar(
-                          backgroundColor: Color(
-                            int.parse(
-                              category.color.replaceAll(
-                                '#',
-                                '0xFF',
-                              ),
-                            ),
-                          ),
+                          backgroundColor: Colors.white,
                           backgroundImage: NetworkImage(category.photo),
                           radius: 30,
                         ),

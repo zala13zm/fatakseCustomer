@@ -45,7 +45,7 @@ class _BannerCarouselState extends State<BannerCarousel> {
   @override
   Widget build(BuildContext context) {
     return bannerImages.isEmpty
-        ? CircularProgressIndicator()
+        ? SizedBox()
         : CarouselSlider(
             options: CarouselOptions(
               autoPlay: true,

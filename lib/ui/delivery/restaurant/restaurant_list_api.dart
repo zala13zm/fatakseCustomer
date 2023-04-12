@@ -87,7 +87,7 @@ class _RestaurentCardWidgetState extends State<RestaurentCardWidget> {
         builder: (context, AsyncSnapshot<List<RestData>> snapshot) {
           return Container(
             height:
-                snapshot.hasData ? snapshot.data.length.toDouble() * 351 : 0,
+                snapshot.hasData ? snapshot.data.length.toDouble() * 420 : 0,
             child: Column(
               children: [
                 Container(

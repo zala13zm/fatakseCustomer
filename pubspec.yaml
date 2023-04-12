@@ -42,6 +42,8 @@ dependencies:
   flutter_map: ^3.1.0
   latlong2: ^0.8.1
   google_maps_flutter: ^2.2.5
+  card_swiper: ^1.0.4
+  sticky_headers: ^0.3.0+2
 
 dev_dependencies:
   flutter_test:
@@ -54,7 +56,11 @@ dev_dependencies:
 flutter:
   assets:
     - images/food1.jpg
-    - images/
+    - images/banners/banner1.jpg
+    - images/banners/banner2.jpg
+    - images/banners/banner3.jpg
+    - images/banners/banner4.jpg
+    - images/12.gif
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
