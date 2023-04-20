@@ -3,9 +3,7 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:zomatoui/constants/colors.dart';
 import 'package:zomatoui/constants/textstyles.dart';
 import 'package:zomatoui/ui/delivery/first.dart';
-import 'package:zomatoui/ui/dinein/second.dart';
 import 'package:zomatoui/ui/explore/fourth.dart';
-import 'package:zomatoui/ui/gold/third.dart';
 import 'package:zomatoui/ui/profile/fifth.dart';
 import 'package:zomatoui/widgets/widgets.dart';
 
@@ -18,8 +16,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   int _selectedIndex = 0;
   static List<Widget> _widgetOptions = <Widget>[
     FirstPage(),
-    SecondPage(),
-    ThirdPage(),
     FourthPage(),
     FifthPage(),
   ];
@@ -51,14 +47,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             label: 'Order',
           ),
           BottomNavigationBarItem(
-            icon: Icon(MaterialCommunityIcons.shoe_print),
-            label: 'Go Out',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.category),
-            label: 'Gold',
-          ),
-          BottomNavigationBarItem(
             icon: Icon(SimpleLineIcons.compass),
             label: 'Explore',
           ),
@@ -76,7 +64,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         onTap: _onItemTapped,
       ),
       body: SafeArea(
-        child: _selectedIndex == 2 || _selectedIndex == 4
+        child: _selectedIndex == 2 || _selectedIndex == 3
             ? Container(
                 child: _widgetOptions.elementAt(_selectedIndex),
               )

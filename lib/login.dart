@@ -1,14 +1,8 @@
 import 'dart:convert';
 
-
 import 'package:flutter/material.dart';
-import 'package:geocoding/geocoding.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:zomatoui/ui/home.dart';
-
 import 'package:http/http.dart' as http;
-
+import 'package:zomatoui/ui/home.dart';
 
 void main() {
   runApp(
@@ -24,40 +18,34 @@ class LoginPage extends StatelessWidget {
   final TextEditingController _passwordController = TextEditingController();
 
   Future<String> getLoginAPICall(BuildContext context) async {
-
     Map<String, String> headers = {
       'Content-Type': 'application/json; charset=UTF-8',
     };
     Map<String, dynamic> requestJsonMap;
 
-requestJsonMap = {
-  'email': _emailController.text,
-  'password':_passwordController.text
-};
+    requestJsonMap = {
+      'email': _emailController.text,
+      'password': _passwordController.text
+    };
 
-
-    final response = await http.post(Uri.parse("http://phplaravel-726599-3418885.cloudwaysapps.com/api/v1/login"),
-          headers: headers,
-          body:
-          (requestJsonMap == null) ? null : json.encode(requestJsonMap))
-          .timeout(const Duration(seconds: 60));
-      var data = jsonDecode(response.body.toString());
+    final response = await http
+        .post(
+            Uri.parse(
+                "http://phplaravel-726599-3418885.cloudwaysapps.com/api/v1/login"),
+            headers: headers,
+            body: (requestJsonMap == null) ? null : json.encode(requestJsonMap))
+        .timeout(const Duration(seconds: 60));
+    var data = jsonDecode(response.body.toString());
 //final datarespose = responseJson["Data"];
-      if (response.statusCode == 200) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => HomePage(
-            ),
-          ),
-        );
-      }
-
-
-
-
+    if (response.statusCode == 200) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => HomePage(),
+        ),
+      );
+    }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -81,26 +69,22 @@ requestJsonMap = {
                   keyboardType: TextInputType.emailAddress,
                   // set maximum length to 10
                   decoration: InputDecoration(
-                    labelText: 'Email',
-                    hintText: 'Enter email'
-                  ),
+                      labelText: 'Email', hintText: 'Enter email'),
                 ),
                 TextFormField(
                   controller: _passwordController,
                   keyboardType: TextInputType.visiblePassword,
                   // set maximum length to 10
                   decoration: InputDecoration(
-                    labelText: 'Password',
-                    hintText: 'Enter Password' // add prefix text
-                  ),
+                      labelText: 'Password',
+                      hintText: 'Enter Password' // add prefix text
+                      ),
                 ),
-
                 SizedBox(height: 16.0),
                 ElevatedButton(
                   onPressed: () async {
                     // Navigate to OTP verification screen
-                  await  getLoginAPICall(context);
-
+                    await getLoginAPICall(context);
                   },
                   child: Text('Login'),
                   style: ElevatedButton.styleFrom(
@@ -118,10 +102,6 @@ requestJsonMap = {
       ),
     );
   }
-
-
-
-
 }
 
 class VerifyPage extends StatefulWidget {

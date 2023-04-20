@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:zomatoui/checkout.dart';
 import 'package:zomatoui/ui/delivery/restaurant/restaurant_list_api.dart';
 
 import 'menu_products.dart';
@@ -179,15 +180,12 @@ class _RestaurantDetailPageState extends State<RestaurantDetailPage> {
                       ],
                     ),
                   ),
-                  // onTap: () => Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (_) => Checkout(
-                  //         obj: widget.obj,
-                  //         selectedItems: _selectedItems,
-                  //         totalPrice: totalPrice),
-                  //   ),
-                  // ),
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => CheckOut(),
+                    ),
+                  ),
                 ),
             ],
           ),

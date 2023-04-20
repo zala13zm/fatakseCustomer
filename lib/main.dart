@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:zomatoui/login.dart';
-import 'package:zomatoui/ui/home.dart';
 
 void main() {
   runApp(MyApp());
@@ -33,5 +32,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
