@@ -14,16 +14,14 @@ class CheckOut extends StatefulWidget {
   @override
   State<CheckOut> createState() => _CheckOutState();
 }
-
 class _CheckOutState extends State<CheckOut> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // todo: this page is not scrolling malahar bhai
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.start,
+        body: Center(
+        child: ListView(
+         shrinkWrap: true,
         children: <Widget>[
           Row(
             mainAxisSize: MainAxisSize.min,
@@ -673,6 +671,7 @@ class _CheckOutState extends State<CheckOut> {
           ),
         ],
       ),
+    ),
     );
   }
 }
