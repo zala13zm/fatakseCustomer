@@ -61,6 +61,12 @@ flutter:
     - images/banners/banner3.jpg
     - images/banners/banner4.jpg
     - images/12.gif
+    - images/py.png
+    - images/cl1.png
+    - images/3.jpg
+    - images/d1.png
+    - images/3.jpg
+    - images/i2.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
