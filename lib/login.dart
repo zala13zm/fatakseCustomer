@@ -24,24 +24,31 @@ class LoginPage extends StatelessWidget {
     Map<String, dynamic> requestJsonMap;
 
     requestJsonMap = {
-      'email': _emailController.text,
-      'password': _passwordController.text
+     // 'email': _emailController.text,
+     // 'password': _passwordController.text,
+      "mobileNo":_emailController.text,
+      "deviceToken":"fhgfjgfh",
+      "deviceType":"1",
+      "latitude":"587678",
+      "longitude":"7657657",
+      "udid":"7657576"
     };
 
     final response = await http
         .post(
             Uri.parse(
-                "http://phplaravel-726599-3418885.cloudwaysapps.com/api/v1/login"),
+                "http://phplaravel-726599-3418885.cloudwaysapps.com/api/v1/sendOtp"),
             headers: headers,
             body: (requestJsonMap == null) ? null : json.encode(requestJsonMap))
         .timeout(const Duration(seconds: 60));
     var data = jsonDecode(response.body.toString());
+    print("SendOTPResponse"+data['data'].toString());
 //final datarespose = responseJson["Data"];
     if (response.statusCode == 200) {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => HomePage(),
+          builder: (context) =>VerifyPage(phoneNumber: _emailController.text,),
         ),
       );
     }
@@ -66,19 +73,25 @@ class LoginPage extends StatelessWidget {
               children: [
                 TextFormField(
                   controller: _emailController,
-                  keyboardType: TextInputType.emailAddress,
+                  keyboardType: TextInputType.number,
+                  maxLength: 10,
                   // set maximum length to 10
                   decoration: InputDecoration(
-                      labelText: 'Email', hintText: 'Enter email'),
+                    prefixText: '+91 ',
+                      labelText: 'Mobile No', hintText: 'Enter Mobile Number'),
                 ),
-                TextFormField(
-                  controller: _passwordController,
-                  keyboardType: TextInputType.visiblePassword,
-                  // set maximum length to 10
-                  decoration: InputDecoration(
-                      labelText: 'Password',
-                      hintText: 'Enter Password' // add prefix text
-                      ),
+                Visibility(
+                  visible: false,
+                  child: TextFormField(
+                    controller: _passwordController,
+                    keyboardType: TextInputType.visiblePassword,
+                    // set maximum length to 10
+                    decoration: InputDecoration(
+
+                        labelText: 'Password',
+                        hintText: 'Enter Password' // add prefix text
+                        ),
+                  ),
                 ),
                 SizedBox(height: 16.0),
                 ElevatedButton(
@@ -115,6 +128,42 @@ class VerifyPage extends StatefulWidget {
 
 class _VerifyPageState extends State<VerifyPage> {
   final TextEditingController _otpController = TextEditingController();
+
+  Future<String> veryfityOtpAPI(BuildContext context) async {
+    Map<String, String> headers = {
+      'Content-Type': 'application/json; charset=UTF-8',
+    };
+    Map<String, dynamic> requestJsonMap;
+
+    requestJsonMap = {
+      // 'email': _emailController.text,
+      // 'password': _passwordController.text,
+      "mobileNo":widget.phoneNumber.toString(),
+      "otp":_otpController.text.toString(),
+
+    };
+
+    final response = await http
+        .post(
+        Uri.parse(
+            "http://phplaravel-726599-3418885.cloudwaysapps.com/api/v1/OtpLogin"),
+        headers: headers,
+        body: (requestJsonMap == null) ? null : json.encode(requestJsonMap))
+        .timeout(const Duration(seconds: 60));
+    var data = jsonDecode(response.body.toString());
+    print("SendOTPVerifyResponse" + response.body.toString());
+//final datarespose = responseJson["Data"];
+    if (response.statusCode == 200) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>HomePage(),
+        ),
+      );
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -155,17 +204,19 @@ class _VerifyPageState extends State<VerifyPage> {
                 ),
                 SizedBox(height: 16.0),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     // Perform OTP verification
                     // TODO: Add OTP verification logic here
-                    Navigator.push(
+                   /* Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => UserDetailsPage(
                           phoneNumber: widget.phoneNumber,
                         ),
                       ),
-                    );
+                    );*/
+
+                    await veryfityOtpAPI(context);
                   },
                   child: Text('Verify'),
                   style: ElevatedButton.styleFrom(
